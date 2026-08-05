@@ -31,10 +31,10 @@ pair.
 
 | Repo | What it is |
 |------|------------|
-| [**opentype**](https://github.com/go-opentype/opentype) | the engine — sfnt parsing (`cmap`, `glyf` TrueType outlines) + anti-aliased rasterisation via 4×4 supersampling |
+| [**opentype**](https://github.com/go-opentype/opentype) | the engine — sfnt parsing (all `cmap` formats, `glyf` + CFF/CFF2 outlines), GSUB/GPOS/GDEF shaping, variable fonts, TrueType + CFF hinting, the OpenType `MATH` table, subsetting, and anti-aliased 4×4-supersampled rasterisation |
 | [**bidi**](https://github.com/go-opentype/bidi) | the Unicode Bidirectional Algorithm (UAX #9), stdlib-only, no `x/text` |
-| [**shape**](https://github.com/go-opentype/shape) | a HarfBuzz-lite complex-text shaper: Arabic cursive joining, ligatures, mark attachment, kerning, visual order |
-| [**fonts**](https://github.com/go-opentype/fonts) | six bundled, legible, `go:embed`ded font families (Atkinson Hyperlegible default) |
+| [**shape**](https://github.com/go-opentype/shape) | a HarfBuzz-lite complex-text shaper: Arabic joining, Indic, the Universal Shaping Engine, Egyptian hieroglyphs, Hangul, vertical text, ligatures/marks/kerning — positioned glyphs in visual order |
+| [**fonts**](https://github.com/go-opentype/fonts) | 46 bundled, legible, `go:embed`ded font families — Latin, non-Latin scripts and CJK (Atkinson Hyperlegible default) |
 | [**docs**](https://github.com/go-opentype/docs) | this documentation site (MkDocs Material, versioned with mike) |
 | [**brand**](https://github.com/go-opentype/brand) | logo and brand assets |
 
@@ -44,9 +44,11 @@ pair.
   embeds anywhere Go runs, including `GOOS=js GOARCH=wasm` — no C toolchain,
   no vendored assets, no runtime fetch.
 - **Honest about scope.** Each repo's support matrix says plainly what's
-  implemented and what's roadmap — CFF/CFF2 outlines, full GSUB/GPOS,
-  hinting, vertical metrics and OpenType Variations (variable fonts) are
-  tracked as future work, not claimed as done.
+  implemented. CFF/CFF2 outlines, every GSUB/GPOS lookup type with GDEF and
+  lookup flags, TrueType + CFF hinting, vertical metrics, OpenType Variations
+  (variable fonts, incl. `HVAR`/`VVAR`/`MVAR`), the OpenType `MATH` table and
+  font subsetting are all implemented today — on the paths it covers the
+  engine aims at functional parity with HarfBuzz + FreeType.
 - **Conformance-tested.** `bidi` validates against the entire Unicode
   `BidiCharacterTest.txt`; `opentype` and `shape` synthesise fonts in
   memory so their test suites never depend on an external `.ttf`.
@@ -55,10 +57,13 @@ pair.
 
 ## Status
 
-`opentype` parses and rasterises TrueType `glyf` outlines (phase 1); `bidi`
-implements UAX #9 through rule L2 with full conformance-test coverage;
-`shape` composes both into Arabic and Latin/default complex-text shaping;
-`fonts` bundles six OFL/BSD-licensed families. 100% coverage, CI green
-across 6 arches.
+`opentype` parses and rasterises TrueType `glyf` and CFF/CFF2 outlines with
+every GSUB/GPOS lookup type, variable fonts, TrueType + CFF hinting, the
+OpenType `MATH` table and subsetting; `bidi` implements UAX #9 through rule
+L2 with full conformance-test coverage; `shape` composes both into Arabic,
+Indic, Universal Shaping Engine, Egyptian hieroglyph, Hangul, vertical and
+Latin/default complex-text shaping; `fonts` bundles 46 OFL/BSD-licensed
+families across Latin, non-Latin scripts and CJK. 100% coverage, CI green
+across 6 arches plus `js/wasm`, `darwin/arm64` and `windows/amd64`.
 
 BSD-3-Clause.
