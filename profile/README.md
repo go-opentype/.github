@@ -32,7 +32,7 @@ pair.
 | Repo | What it is |
 |------|------------|
 | [**opentype**](https://github.com/go-opentype/opentype) | the engine — sfnt parsing (all `cmap` formats, `glyf` + CFF/CFF2 outlines), GSUB/GPOS/GDEF shaping, variable fonts, TrueType + CFF hinting, the OpenType `MATH` table, subsetting, and anti-aliased 4×4-supersampled rasterisation |
-| [**bidi**](https://github.com/go-opentype/bidi) | the Unicode Bidirectional Algorithm (UAX #9), stdlib-only, no `x/text` |
+| [**bidi**](https://github.com/go-typeset/bidi) | the Unicode Bidirectional Algorithm (UAX #9), stdlib-only, no `x/text` — **now in [go-typeset](https://github.com/go-typeset/bidi)**: the transfer left a redirect, so the old link still opens, but `go get github.com/go-opentype/bidi` fails because the module declares the new path |
 | [**shape**](https://github.com/go-opentype/shape) | a HarfBuzz-lite complex-text shaper: Arabic joining, Indic, the Universal Shaping Engine, Egyptian hieroglyphs, Hangul, vertical text, ligatures/marks/kerning — positioned glyphs in visual order |
 | [**fonts**](https://github.com/go-opentype/fonts) | 46 bundled, legible, `go:embed`ded font families — Latin, non-Latin scripts and CJK (Atkinson Hyperlegible default) |
 | [**docs**](https://github.com/go-opentype/docs) | this documentation site (MkDocs Material, versioned with mike) |
